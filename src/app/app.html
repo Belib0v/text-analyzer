@@ -1,0 +1,39 @@
+<main>
+  <h1 i18n>Phrase and Word Analyzer</h1>
+
+  <textarea
+    #ta
+    [(ngModel)]="text"
+    rows="8"
+    placeholder="Type your text…"
+    i18n-placeholder
+    aria-label="Text"
+    i18n-aria-label
+  ></textarea>
+
+  <div class="row">
+    <span class="muted" i18n>Characters: {{ characterCount() }}<br />Words: {{ wordsCount() }}</span>
+    <button (click)="findSynonyms()" i18n>Synonyms</button>
+    <button (click)="copyText()" i18n>Copy</button>
+  </div>
+
+  <div class="row">
+    @if (noSelection()) {
+      <span class="muted" role="status" i18n>Select a word or phrase first</span>
+    } @else if (synonyms.isLoading()) {
+      <span class="muted" i18n>Loading…</span>
+    } @else if (synonyms.error()) {
+      <span i18n>Error: {{ synonyms.error()?.message }}</span>
+    } @else if (synonyms.hasValue()) {
+      @for (word of synonyms.value(); track word) {
+        <button (click)="replace(word)">{{ word }}</button>
+      } @empty {
+        <span class="muted" i18n>No synonyms found</span>
+      }
+    }
+  </div>
+</main>
+
+@if (copied()) {
+  <div class="toast" role="status" i18n>Copied</div>
+}
