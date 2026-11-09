@@ -8,24 +8,21 @@ A small Angular app for working with text:
 
 ## Run
 
-You only need Docker
+Requires Node.js 22.22+ or 24.15+.
 
 ```bash
-docker compose up -d
+npm i
+npm start
 ```
 
-Open http://localhost:4200. The first start takes a minute while dependencies are installed.
+Open http://localhost:4200.
 
-Stop:
-
-```bash
-docker compose down
-```
+No Docker setup is included on purpose: `npm` is all it needs
 
 ## Tests
 
 ```bash
-docker exec text-analyzer npx ng test --watch=false
+npm test -- --watch=false
 ```
 
 ## Notes
